@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CHECKOUT REPOSITORY
+        uses: actions/checkout@v4
+
+      - name: SETUP NODE
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: INSTALL DEPENDENCIES
+        run: npm ci
+
+      - name: RUN TESTS
+        run: npm run test
+
+      - name: BUILD
+        run: npm run build
